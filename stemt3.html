@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Запитання замість готової відповіді</title>
+<style>
+:root{font-family:Arial,sans-serif;color:#20324c;background:#f3f6fb;font-size:18px;line-height:1.5}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:32px 22px 50px}h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.18;margin:10px 0 14px}h2{font-size:1.25rem;margin:0 0 15px}p{margin:10px 0}.tag{font-size:.85rem;font-weight:bold;letter-spacing:.06em;color:#4566a0}.lead{max-width:750px;color:#51617a}.panel{background:white;border:1px solid #dce4ef;border-radius:20px;padding:25px;margin-top:22px}.number{display:inline-grid;place-items:center;background:#eaf0fb;color:#345c98;border-radius:50%;width:34px;height:34px;margin-right:9px}.case{padding:20px;background:#edf3fc;border-radius:13px;margin:15px 0}.row{display:flex;gap:12px;flex-wrap:wrap}.row button{flex:1 1 240px}button,select,textarea,input{font:inherit}select,textarea,input[type=text]{width:100%;padding:13px;border:1px solid #bcc9db;border-radius:11px;color:inherit;background:white}textarea{min-height:105px;resize:vertical}button{border:1px solid #c1cde0;border-radius:11px;background:#fff;padding:12px 17px;cursor:pointer;color:#20324c;min-height:48px}button:hover{background:#eef3fc}button.primary{background:#345f9d;color:white;border-color:#345f9d}button.primary:hover{background:#254c82}button[aria-pressed=true]{outline:3px solid #345f9d;outline-offset:2px}label.field{display:block;font-weight:bold;margin:20px 0 8px}.muted{color:#5d6c82;font-size:.9rem}.feedback{background:#f0f6f3;border-left:4px solid #56836d;padding:15px;margin-top:15px;border-radius:7px}.warning{background:#fff4db;border-color:#b38632}.hint{margin-top:12px;padding:15px;background:#fff7e7;border-radius:10px}.checks{display:grid;gap:15px;margin:20px 0}.check{display:flex;gap:12px;align-items:flex-start}.check input{width:22px;height:22px;flex-shrink:0;accent-color:#345f9d;margin-top:4px}.status{margin-top:15px;font-weight:bold}.preview{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf3fc;padding:18px;border-radius:12px;margin-top:18px}.counter{text-align:right;color:#526681;margin:7px 0}button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #ad7b13;outline-offset:3px}[hidden]{display:none!important}@media(max-width:540px){main{padding:20px 14px 35px}.panel{padding:19px}.row button{flex-basis:100%}}
+</style>
+</head>
+<body>
+<main><nav aria-label="Повернення" style="display:flex;gap:22px;flex-wrap:wrap;margin-bottom:24px"><a href="./trening.html" style="color:#345f9d">← До тренінгу</a><a href="./index.html" style="color:#345f9d">На головну</a></nav>
+<div class="tag">ПРАКТИКА STEM</div>
+<h1>Запитання замість готової відповіді</h1>
+<p class="lead">Допоможіть учням знайти наступний крок самостійно. Спробуйте два способи реагування, а потім запишіть власні 2–3 запитання.</p>
+<section class="panel">
+<h2><span class="number">1</span>Оберіть ситуацію</h2>
+<label class="field" for="topic">Тема уроку</label>
+<select id="topic"><option value="photo">Якість і розмір фото для вебпублікації</option><option value="water">Витрати води: електронна таблиця та діаграма</option><option value="python">Геометричний візерунок у Python</option><option value="own">Власна тема</option></select>
+<div id="own-fields" hidden><label class="field" for="own-topic">Ваша тема</label><input type="text" id="own-topic" maxlength="180"><label class="field" for="own-case">Що говорить учень?</label><textarea id="own-case" maxlength="700"></textarea></div>
+<div class="case"><strong>Учень говорить:</strong><p id="student"></p></div>
+<div class="row" id="examples"><button type="button" data-mode="answer" aria-pressed="false">Дати готову відповідь</button><button type="button" data-mode="question" aria-pressed="false">Поставити запитання</button></div>
+<div id="example-feedback" class="feedback" aria-live="polite" hidden></div>
+</section>
+<section class="panel">
+<h2><span class="number">2</span>Запишіть 2–3 власні запитання</h2>
+<p>Що ви запитаєте, щоб учні дослідили проблему, знайшли докази або перевірили своє рішення?</p>
+<label class="field" for="q1">Запитання 1</label><textarea id="q1" maxlength="600" placeholder="Ваше запитання до учнів…"></textarea>
+<label class="field" for="q2">Запитання 2</label><textarea id="q2" maxlength="600" placeholder="Ваше запитання до учнів…"></textarea>
+<label class="field" for="q3">Запитання 3 <span class="muted">(за бажанням)</span></label><textarea id="q3" maxlength="600" placeholder="Ще одне запитання…"></textarea>
+<div class="counter" id="count" aria-live="polite">Записано: 0 із 3</div>
+<button type="button" id="hint-button" aria-expanded="false" aria-controls="hint">Показати опори для формулювання</button>
+<div class="hint" id="hint" hidden>Про дані: «Які спостереження підтверджують…?»<br>Про перевірку: «Як можна перевірити…?»<br>Про умови: «Що варто залишити незмінним…?»<br>Про рішення: «Що ви зміните та як оціните результат…?»</div>
+</section>
+<section class="panel">
+<h2><span class="number">3</span>Перевірте свої запитання</h2>
+<p>Це самоперевірка. Прочитайте запитання й позначте твердження, з якими погоджуєтеся.</p>
+<div class="checks">
+<label class="check"><input type="checkbox" id="c1"><span>Я залишаю учням вибір способу дії, а не повідомляю готове рішення.</span></label>
+<label class="check"><input type="checkbox" id="c2"><span>Запитання спонукають спостерігати, порівнювати, пояснювати або перевіряти.</span></label>
+<label class="check"><input type="checkbox" id="c3"><span>Учням зрозуміло, з якою ситуацією пов’язані запитання та який наступний крок вони можуть зробити.</span></label>
+</div>
+<div class="row"><button type="button" class="primary" id="review">Переглянути мої запитання</button><button type="button" id="download">Завантажити відповіді</button></div>
+<div id="status" class="status" role="status"></div><div id="preview" class="preview" hidden></div>
+<p class="muted">Відповіді автоматично зберігаються в цьому браузері. Щоб поділитися ними, завантажте текстовий файл або скопіюйте текст.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const cases={
+ photo:{title:'Якість і розмір фото для вебпублікації',student:'Я зменшив фото, але тепер воно розмите. Не знаю, який варіант обрати.',answer:'Збережіть фото завширшки 1200 пікселів у JPEG із якістю 80%.',question:'Які вимоги до фото на вашій сторінці? Як ви порівняєте копії за якістю та обсягом файлу?',why:'Учні самі визначають критерії й спосіб порівняння. Конкретні параметри з готової відповіді можуть не відповідати їхнім умовам.'},
+ water:{title:'Витрати води: електронна таблиця та діаграма',student:'У різних груп вийшли різні витрати води. Хто з нас помилився?',answer:'Візьміть середнє значення всіх груп і побудуйте стовпчикову діаграму.',question:'За яких умов кожна група робила вимірювання? Які дані допоможуть пояснити відмінності?',why:'Учні перевіряють умови досліду, перш ніж об’єднувати дані. Відмінності можуть бути результатом різних умов.'},
+ python:{title:'Геометричний візерунок у Python',student:'Моя фігура не замикається. Скажіть, який кут треба поставити.',answer:'Для правильного шестикутника поставте поворот 60 градусів і повторіть команди шість разів.',question:'На скільки градусів виконавець повертається за всі повторення? Як ви перевірите зв’язок між кутом і кількістю сторін?',why:'Учні аналізують алгоритм і перевіряють свою ідею. Готова відповідь одразу визначає і фігуру, і параметри.'}
+};
+const inputs=['own-topic','own-case','q1','q2','q3'];
+const key='stem-facilitator-questions-v1';
+function questions(){return ['q1','q2','q3'].map(id=>$(id).value.trim()).filter(Boolean)}
+function topicName(){return $('topic').value==='own'?$('own-topic').value.trim():cases[$('topic').value].title}
+function persist(){try{localStorage.setItem(key,JSON.stringify({topic:$('topic').value,...Object.fromEntries(inputs.map(id=>[id,$(id).value])),checks:['c1','c2','c3'].map(id=>$(id).checked)}))}catch{}}
+function changed(){ $('count').textContent='Записано: '+questions().length+' із 3';$('preview').hidden=true;$('status').textContent='';persist() }
+function showCase(){const own=$('topic').value==='own';$('own-fields').hidden=!own;$('examples').hidden=own;$('student').textContent=own?($('own-case').value.trim()||'Опишіть ситуацію своїми словами.'):cases[$('topic').value].student;$('example-feedback').hidden=true;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed','false'));changed()}
+function makeText(){return 'ЗАПИТАННЯ ЗАМІСТЬ ГОТОВОЇ ВІДПОВІДІ\n\nТема: '+topicName()+'\nСитуація: '+$('student').textContent+'\n\n'+questions().map((q,i)=>(i+1)+'. '+q).join('\n\n')+'\n\nСамоперевірка: '+['c1','c2','c3'].filter(id=>$(id).checked).length+' із 3 критеріїв позначено.'}
+function validate(){if($('topic').value==='own'&&(!topicName()||!$('own-case').value.trim())){ $('status').textContent='Додайте власну тему та ситуацію.';return false }if(questions().length<2){$('status').textContent='Запишіть щонайменше два запитання.';return false}const normalized=questions().map(q=>q.toLocaleLowerCase().replace(/[\s.,!?;:—–-]+/g,''));if(new Set(normalized).size<normalized.length){$('status').textContent='Два запитання повторюються. Спробуйте спрямувати їх на різні кроки роботи.';return false}return true}
+$('topic').addEventListener('change',showCase);
+inputs.forEach(id=>$(id).addEventListener('input',()=>{if(id==='own-case')$('student').textContent=$(id).value.trim()||'Опишіть ситуацію своїми словами.';changed()}));
+['c1','c2','c3'].forEach(id=>$(id).addEventListener('change',changed));
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{const c=cases[$('topic').value];const isQuestion=b.dataset.mode==='question';document.querySelectorAll('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('example-feedback').textContent=(isQuestion?'Запитання вчителя: ':'Готова відповідь: ')+(isQuestion?c.question:c.answer)+' '+c.why;$('example-feedback').classList.toggle('warning',!isQuestion);$('example-feedback').hidden=false}));
+$('hint-button').addEventListener('click',()=>{const opened=$('hint').hidden;$('hint').hidden=!opened;$('hint-button').setAttribute('aria-expanded',String(opened));$('hint-button').textContent=opened?'Приховати опори':'Показати опори для формулювання'});
+$('review').addEventListener('click',()=>{if(!validate())return;$('preview').textContent=makeText();$('preview').hidden=false;const checked=['c1','c2','c3'].filter(id=>$(id).checked).length;$('status').textContent=checked===3?'Ви завершили самоперевірку. За потреби відредагуйте запитання.':'Перегляньте непозначені критерії та вирішіть, що варто змінити.'});
+$('download').addEventListener('click',()=>{if(!validate())return;const blob=new Blob(['\uFEFF'+makeText()],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='STEM-zapytannia.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$('status').textContent='Відповіді підготовлено для завантаження.'});
+try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved){if(cases[saved.topic]||saved.topic==='own')$('topic').value=saved.topic;inputs.forEach(id=>{if(typeof saved[id]==='string')$(id).value=saved[id]});['c1','c2','c3'].forEach((id,i)=>$(id).checked=!!saved.checks?.[i])}}catch{}
+showCase();
+</script>
+</body>
+</html>
